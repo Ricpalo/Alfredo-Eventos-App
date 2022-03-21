@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Eventos</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button routerLink="/add-evento">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row class="ion-text-center">
+    <ion-col size-sm="6" size-md="4" size-lg="3">
+      <ion-card *ngFor="let evento of eventos">
+        <ion-card-title (click)="selectEvento(evento);">{{evento.fecha_inicio}}</ion-card-title>
+        <ion-card-content>{{evento.fecha_fin}}</ion-card-content>
+        
+        <ion-card-subtitle *ngFor="let instructor of instructores">
+          <ion-card-subtitle *ngIf="instructor.id == evento.id_instructor">
+            {{instructor.nombre}}
+          </ion-card-subtitle>
+        </ion-card-subtitle>
+
+        <ion-card-subtitle *ngFor="let curso of cursos">
+          <ion-card-subtitle *ngIf="curso.id == evento.id_curso">
+            {{curso.titulo}}
+          </ion-card-subtitle>
+        </ion-card-subtitle>
+
+        <ion-card-subtitle *ngFor="let ubicacion of ubicaciones">
+          <ion-card-subtitle *ngIf="ubicacion.id == evento.id_ubicacion">
+            {{ubicacion.nombre}}
+          </ion-card-subtitle>
+        </ion-card-subtitle>
+
+        <ion-button color="primary" (click)="selectEvento(evento)">Actualizar</ion-button>
+        <ion-button color="danger" (click)="deleteEvento(evento.id)">Eliminar</ion-button>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>
+ 

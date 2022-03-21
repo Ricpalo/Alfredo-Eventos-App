@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>Instructores</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button routerLink="/add-instructor">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row class="ion-text-center">
+    <ion-col size-sm="6" size-md="4" size-lg="3">
+      <ion-card *ngFor="let instructor of instructores">
+        <ion-card-title (click)="selectInstructor(instructor);">{{instructor.nombre}}</ion-card-title>
+        <ion-card-content>{{instructor.email}}</ion-card-content>
+
+        <ion-button color="primary" (click)="selectInstructor(instructor)">Actualizar</ion-button>
+        <ion-button color="danger" (click)="deleteInstructor(instructor.id)">Eliminar</ion-button>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>
+ 
