@@ -10,8 +10,6 @@
 
 <ion-content>
   <form (ngSubmit)="updateCurso();">
-    <ion-input type="hidden" [(ngModel)]="curso.id" value="curso_recibido.id" name="nombre"></ion-input>
-
     <ion-item>
       <ion-label>Titulo: </ion-label>
       <ion-input type="text" [(ngModel)]="curso.titulo" name="titulo"></ion-input>

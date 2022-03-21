@@ -23,7 +23,7 @@ export class UpdateEventoPage implements OnInit {
   }
 
   evento = {
-    id: this.evento_recibido.id,
+    id: "",
     fecha_inicio: "",
     fecha_fin: "",
     id_instructor: "",
@@ -42,6 +42,7 @@ export class UpdateEventoPage implements OnInit {
     this.activatedRoute.queryParams.subscribe(res => {
       if ( this.router.getCurrentNavigation().extras.state ) {
         this.evento_recibido = this.router.getCurrentNavigation().extras.state.evento;
+        this.evento.id = this.evento_recibido.id;
       } else {
         this.router.navigate(['eventos']);
       }
@@ -78,19 +79,10 @@ export class UpdateEventoPage implements OnInit {
   }
 
   updateEvento () {
-    let formulario = new FormData();
-
-    formulario.append("id", this.evento_recibido.id);
-    formulario.append("fecha_inicio", this.evento.fecha_inicio);
-    formulario.append("fecha_fin", this.evento.fecha_fin);
-    formulario.append("id_instructor", this.evento.id_instructor);
-    formulario.append("id_curso", this.evento.id_curso);
-    formulario.append("id_ubicacion", this.evento.id_ubicacion);
-
-    this.restService.subida_ficheros_y_datos('eventos/api/eventos', formulario).subscribe(res => {
+    this.restService.ejecutar_put('eventos/api/eventos', this.evento).subscribe(res => {
+      console.log(this.evento);
       console.log(res);
       this.router.navigate(['eventos']);
     })
   }
-
 }

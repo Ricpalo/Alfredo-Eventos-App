@@ -16,7 +16,7 @@ export class UpdateUbicacionPage implements OnInit {
   }
 
   ubicacion = {
-    id: this.ubicacion_recibida.id,
+    id: "",
     nombre: "",
     direccion: ""
   }
@@ -31,6 +31,7 @@ export class UpdateUbicacionPage implements OnInit {
     this.activatedRoute.queryParams.subscribe(res => {
       if ( this.router.getCurrentNavigation().extras.state ) {
         this.ubicacion_recibida = this.router.getCurrentNavigation().extras.state.ubicacion;
+        this.ubicacion.id = this.ubicacion_recibida.id;
       } else {
         this.router.navigate(['ubicaciones']);
       }
@@ -38,13 +39,8 @@ export class UpdateUbicacionPage implements OnInit {
   }
 
   updateUbicacion () {
-    let formulario = new FormData();
-
-    formulario.append("id", this.ubicacion_recibida.id);
-    formulario.append("nombre", this.ubicacion.nombre);
-    formulario.append("direccion", this.ubicacion.direccion);
-
-    this.restService.subida_ficheros_y_datos('ubicaciones/api/ubicaciones', formulario).subscribe(res => {
+    this.restService.ejecutar_put('ubicaciones/api/ubicaciones', this.ubicacion).subscribe(res => {
+      console.log(this.ubicacion);
       console.log(res);
       this.router.navigate(['ubicaciones']);
     })

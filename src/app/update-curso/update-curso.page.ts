@@ -17,7 +17,7 @@ export class UpdateCursoPage implements OnInit {
   }
 
   curso = {
-    id: this.curso_recibido.id,
+    id: "",
     titulo: "",
     duracion: "",
     precio: "",
@@ -34,6 +34,7 @@ export class UpdateCursoPage implements OnInit {
     this.activatedRoute.queryParams.subscribe(res => {
       if ( this.router.getCurrentNavigation().extras.state ) {
         this.curso_recibido = this.router.getCurrentNavigation().extras.state.curso;
+        this.curso.id = this.curso_recibido.id;
       } else {
         this.router.navigate(['cursos']);
       }
@@ -41,15 +42,8 @@ export class UpdateCursoPage implements OnInit {
   }
 
   updateCurso () {
-    let formulario = new FormData();
-
-    formulario.append("id", this.curso_recibido.id);
-    formulario.append("titulo", this.curso.titulo);
-    formulario.append("duracion", this.curso.duracion);
-    formulario.append("precio", this.curso.precio);
-    formulario.append("descripcion", this.curso.descripcion);
-
-    this.restService.subida_ficheros_y_datos('cursos/api/cursos', formulario).subscribe(res => {
+    this.restService.ejecutar_put('cursos/api/cursos', this.curso).subscribe(res => {
+      console.log(this.curso);
       console.log(res);
       this.router.navigate(['cursos']);
     })

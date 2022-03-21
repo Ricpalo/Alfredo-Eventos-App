@@ -19,9 +19,9 @@
     <ion-col size-sm="6" size-md="4" size-lg="3">
       <ion-card *ngFor="let curso of cursos">
         <ion-card-title (click)="selectCurso(curso);">{{curso.titulo}}</ion-card-title>
-        <ion-card-content>{{curso.duracion}}</ion-card-content>
-        <ion-card-content>{{curso.precio}}</ion-card-content>
-        <ion-card-content>{{curso.descripcion}}</ion-card-content>
+        <ion-card-subtitle>{{curso.duracion}}</ion-card-subtitle>
+        <ion-card-subtitle>{{curso.precio}}</ion-card-subtitle>
+        <ion-card-subtitle>{{curso.descripcion}}</ion-card-subtitle>
 
         <ion-button color="primary" (click)="selectCurso(curso)">Actualizar</ion-button>
         <ion-button color="danger" (click)="deleteCurso(curso.id)">Eliminar</ion-button>

@@ -10,8 +10,6 @@
 
 <ion-content>
   <form (ngSubmit)="updateEvento();">
-    <ion-input type="hidden" [(ngModel)]="evento.id" value="evento_recibido.id" name="nombre"></ion-input>
-
     <ion-item>
       <ion-label>Fecha de Inicio: </ion-label>
       <ion-input type="date" [(ngModel)]="evento.fecha_inicio" name="fecha_inicio"></ion-input>

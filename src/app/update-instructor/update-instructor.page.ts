@@ -16,7 +16,7 @@ export class UpdateInstructorPage implements OnInit {
   }
 
   instructor = {
-    id: this.instructor_recibido.id,
+    id: "",
     nombre: "",
     email: ""
   }
@@ -31,6 +31,7 @@ export class UpdateInstructorPage implements OnInit {
     this.activatedRoute.queryParams.subscribe(res => {
       if ( this.router.getCurrentNavigation().extras.state ) {
         this.instructor_recibido = this.router.getCurrentNavigation().extras.state.instructor;
+        this.instructor.id = this.instructor_recibido.id;
       } else {
         this.router.navigate(['instructores']);
       }
@@ -38,13 +39,8 @@ export class UpdateInstructorPage implements OnInit {
   }
 
   updateInstructor () {
-    let formulario = new FormData();
-
-    formulario.append("id", this.instructor_recibido.id);
-    formulario.append("nombre", this.instructor.nombre);
-    formulario.append("email", this.instructor.email);
-
-    this.restService.subida_ficheros_y_datos('instructores/api/instructores', formulario).subscribe(res => {
+    this.restService.ejecutar_put('instructores/api/instructores', this.instructor).subscribe(res => {
+      console.log(this.instructor);
       console.log(res);
       this.router.navigate(['instructores']);
     })
