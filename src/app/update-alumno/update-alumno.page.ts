@@ -21,6 +21,11 @@ export class UpdateAlumnoPage implements OnInit {
     direccion: ""
   }
 
+  errores = {
+    nombre: "",
+    direccion: ""
+  }
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -40,9 +45,17 @@ export class UpdateAlumnoPage implements OnInit {
 
   updateAlumno () {
     this.restService.ejecutar_put('alumnos/api/alumnos', this.alumno).subscribe(res => {
-      console.log(this.alumno);
-      console.log(res);
-      this.router.navigate(['alumnos']);
+      if (this.alumno.nombre == "") {
+        this.errores.nombre = "El campo nombre no puede ir vacío";
+      } 
+      
+      if (this.alumno.direccion == "") {
+        this.errores.direccion = "El campo direccion no puede ir vacío";
+      } 
+      
+      if (this.alumno.nombre != "" && this.alumno.direccion != "") {
+        this.router.navigate(['alumnos']);
+      }
     })
   }
 }

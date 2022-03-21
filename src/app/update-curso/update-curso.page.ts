@@ -24,6 +24,14 @@ export class UpdateCursoPage implements OnInit {
     descripcion: ""
   }
 
+  errores = {
+    id: "",
+    titulo: "",
+    duracion: "",
+    precio: "",
+    descripcion: ""
+  }
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -43,9 +51,25 @@ export class UpdateCursoPage implements OnInit {
 
   updateCurso () {
     this.restService.ejecutar_put('cursos/api/cursos', this.curso).subscribe(res => {
-      console.log(this.curso);
-      console.log(res);
-      this.router.navigate(['cursos']);
+      if ( this.curso.titulo == "" ) {
+        this.errores.titulo = "El campo titulo no puede ir vacío";
+      }
+
+      if ( this.curso.duracion == "" ) {
+        this.errores.duracion = "El campo duracion no puede ir vacío";
+      }
+
+      if ( this.curso.precio == "" ) {
+        this.errores.precio = "El campo precio no puede ir vacío";
+      }
+
+      if ( this.curso.descripcion == "" ) {
+        this.errores.descripcion = "El campo descripcion no puede ir vacío";
+      }
+
+      if ( this.curso.titulo != "" && this.curso.duracion != "" && this.curso.precio != "" && this.curso.descripcion != "" ) {
+        this.router.navigate(['cursos']);
+      }
     })
   }
 }

@@ -15,6 +15,13 @@ export class AddCursoPage implements OnInit {
     descripcion: ""
   }
 
+  errores = {
+    titulo: "",
+    duracion: "",
+    precio: "",
+    descripcion: ""
+  }
+
   constructor(
     private restService: RestService,
     private router: Router
@@ -32,8 +39,25 @@ export class AddCursoPage implements OnInit {
     formulario.append("descripcion", this.curso.descripcion);
 
     this.restService.subida_ficheros_y_datos('cursos/api/cursos', formulario).subscribe(res => {
-      console.log(res);
-      this.router.navigate(['cursos']);
+      if (res.status == "0") {
+        if (res.errores.titulo != null) {
+          this.errores.titulo = "El campo titulo es requerido";
+        }
+
+        if (res.errores.duracion != null) {
+          this.errores.duracion = "El campo duracion es requerido";
+        }
+
+        if (res.errores.precio != null) {
+          this.errores.precio = "El campo precio es requerido";
+        }
+
+        if (res.errores.descripcion != null) {
+          this.errores.descripcion = "El campo descripcion es requerido";
+        }
+      } else {
+        this.router.navigate(['cursos']);
+      }
     });
   }
 }

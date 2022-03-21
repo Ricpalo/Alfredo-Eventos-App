@@ -58,5 +58,12 @@ export class AlumnosPage implements OnInit {
 
     this.router.navigate(['update-alumno'], parametros);
   }
+
+  doRefresh(event) {
+    setTimeout(() => {
+      event.target.complete();
+      this.cargarDatos();
+    }, 1000);
+  }
 }
  

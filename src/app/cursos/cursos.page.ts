@@ -58,4 +58,11 @@ export class CursosPage implements OnInit {
 
     this.router.navigate(['update-curso'], parametros);
   }
+
+  doRefresh(event) {
+    setTimeout(() => {
+      event.target.complete();
+      this.cargarDatos();
+    }, 1000);
+  }
 }

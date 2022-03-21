@@ -21,6 +21,14 @@ export class AddEventoPage implements OnInit {
     id_ubicacion: ""
   }
 
+  errores = {
+    fecha_inicio: "",
+    fecha_fin: "",
+    id_instructor: "",
+    id_curso: "",
+    id_ubicacion: ""
+  }
+
   constructor(
     private restService: RestService,
     private router: Router,
@@ -68,8 +76,29 @@ export class AddEventoPage implements OnInit {
     formulario.append("id_ubicacion", this.evento.id_ubicacion);
 
     this.restService.subida_ficheros_y_datos('eventos/api/eventos', formulario).subscribe(res => {
-      console.log(res);
-      this.router.navigate(['eventos']);
+      if ( res.status == "0" ) {
+        if ( res.errores.fecha_inicio != null ) {
+          this.errores.fecha_inicio = "El campo fecha de inicio es requerido";
+        }
+
+        if ( res.errores.fecha_fin != null ) {
+          this.errores.fecha_fin = "El campo fecha de fin es requerido";
+        }
+
+        if ( res.errores.id_instructor != null ) {
+          this.errores.id_instructor = "El campo instructor es requerido";
+        }
+
+        if ( res.errores.id_curso != null ) {
+          this.errores.id_curso = "El campo curso es requerido";
+        }
+
+        if ( res.errores.id_ubicacion != null ) {
+          this.errores.id_ubicacion = "El campo ubicacion es requerido";
+        }
+      } else {
+        this.router.navigate(['eventos']);
+      }
     });
   }
 }

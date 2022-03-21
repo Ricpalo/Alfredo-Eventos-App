@@ -21,6 +21,11 @@ export class UpdateInstructorPage implements OnInit {
     email: ""
   }
 
+  errores = {
+    nombre: "",
+    email: ""
+  }
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -40,9 +45,17 @@ export class UpdateInstructorPage implements OnInit {
 
   updateInstructor () {
     this.restService.ejecutar_put('instructores/api/instructores', this.instructor).subscribe(res => {
-      console.log(this.instructor);
-      console.log(res);
-      this.router.navigate(['instructores']);
+      if ( this.instructor.nombre == "" ) {
+        this.errores.nombre = "El campo nombre no puede ir vacío";
+      }
+
+      if ( this.instructor.email == "" ) {
+        this.errores.email = "El campo email no puede ir vacío";
+      }
+
+      if ( this.instructor.nombre != "" && this.instructor.email != "" ) {
+        this.router.navigate(['instructores']);
+      }
     })
   }
 

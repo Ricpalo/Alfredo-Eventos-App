@@ -21,6 +21,11 @@ export class UpdateUbicacionPage implements OnInit {
     direccion: ""
   }
 
+  errores = {
+    nombre: "",
+    direccion: ""
+  }
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -40,9 +45,17 @@ export class UpdateUbicacionPage implements OnInit {
 
   updateUbicacion () {
     this.restService.ejecutar_put('ubicaciones/api/ubicaciones', this.ubicacion).subscribe(res => {
-      console.log(this.ubicacion);
-      console.log(res);
-      this.router.navigate(['ubicaciones']);
+      if ( this.ubicacion.nombre == "" ) {
+        this.errores.nombre = "El campo nombre no puede ir vacío";
+      } 
+
+      if ( this.ubicacion.direccion == "" ) {
+        this.errores.direccion = "El campo direccion no puede ir vacío";
+      }
+
+      if ( this.ubicacion.nombre != "" && this.ubicacion.direccion != "" ) {
+        this.router.navigate(['ubicaciones']);
+      }
     })
   }
 }

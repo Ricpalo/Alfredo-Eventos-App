@@ -31,6 +31,15 @@ export class UpdateEventoPage implements OnInit {
     id_ubicacion: ""
   }
 
+  errores = {
+    id: "",
+    fecha_inicio: "",
+    fecha_fin: "",
+    id_instructor: "",
+    id_curso: "",
+    id_ubicacion: ""
+  }
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -79,10 +88,37 @@ export class UpdateEventoPage implements OnInit {
   }
 
   updateEvento () {
+    console.log(this.evento);
+
     this.restService.ejecutar_put('eventos/api/eventos', this.evento).subscribe(res => {
-      console.log(this.evento);
-      console.log(res);
-      this.router.navigate(['eventos']);
+      if ( this.evento.fecha_inicio == "" ) {
+        this.errores.fecha_inicio = "El campo fecha inicio no puede ir vacío";
+      }
+
+      if ( this.evento.fecha_fin == "" ) {
+        this.errores.fecha_fin = "El campo fecha fin no puede ir vacío";
+      }
+
+      if ( this.evento.id_instructor == "" ) {
+        this.errores.id_instructor = "El campo instructor no puede ir vacío";
+      }
+
+      if ( this.evento.id_curso == "" ) {
+        this.errores.id_curso = "El campo curso no puede ir vacío";
+      }
+
+      if ( this.evento.id_ubicacion == "" ) {
+        this.errores.id_ubicacion = "El campo ubicacion no puede ir vacío";
+      }
+
+      if ( this.evento.fecha_inicio != "" 
+          && this.evento.fecha_fin != "" 
+          && this.evento.id_instructor != "" 
+          && this.evento.id_curso != "" 
+          && this.evento.id_ubicacion != "") {
+        this.router.navigate(['eventos']);
+      }
+
     })
   }
 }

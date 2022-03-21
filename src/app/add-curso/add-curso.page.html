@@ -15,9 +15,21 @@
       <ion-input type="text" [(ngModel)]="curso.titulo" name="titulo"></ion-input>
     </ion-item>
 
+    <ion-item *ngIf="errores.titulo != ''">
+      <ion-text color="danger">
+        <h4>{{errores.titulo}}</h4>
+      </ion-text>
+    </ion-item>
+
     <ion-item>
       <ion-label>Duracion: </ion-label>
       <ion-input type="text" [(ngModel)]="curso.duracion" name="duracion"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="errores.duracion != ''">
+      <ion-text color="danger">
+        <h4>{{errores.duracion}}</h4>
+      </ion-text>
     </ion-item>
 
     <ion-item>
@@ -25,9 +37,21 @@
       <ion-input type="text" [(ngModel)]="curso.precio" name="precio"></ion-input>
     </ion-item>
 
+    <ion-item *ngIf="errores.precio != ''">
+      <ion-text color="danger">
+        <h4>{{errores.precio}}</h4>
+      </ion-text>
+    </ion-item>
+
     <ion-item>
       <ion-label>Descripcion: </ion-label>
       <ion-input type="text" [(ngModel)]="curso.descripcion" name="descripcion"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="errores.descripcion != ''">
+      <ion-text color="danger">
+        <h4>{{errores.descripcion}}</h4>
+      </ion-text>
     </ion-item>
 
     <ion-button type="submit" color="medium" expand="block">Registrar</ion-button>

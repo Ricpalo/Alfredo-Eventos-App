@@ -12,12 +12,24 @@
   <form (ngSubmit)="addAlumno();">
     <ion-item>
       <ion-label>Nombre: </ion-label>
-      <ion-input type="text" [(ngModel)]="alumno.nombre" name="nombre"></ion-input>
+      <ion-input type="text" [(ngModel)]="alumno.nombre" name="nombre" placeholder="Escribe el nombre"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="errores.nombre != ''">
+      <ion-text color="danger">
+        <h4>{{errores.nombre}}</h4>
+      </ion-text>
     </ion-item>
 
     <ion-item>
       <ion-label>Direccion: </ion-label>
-      <ion-input type="text" [(ngModel)]="alumno.direccion" name="direccion"></ion-input>
+      <ion-input type="text" [(ngModel)]="alumno.direccion" name="direccion" placeholder="Escribe la direccion"></ion-input>
+    </ion-item>
+
+    <ion-item *ngIf="errores.direccion != ''">
+      <ion-text color="danger">
+        <h4>{{errores.direccion}}</h4>
+      </ion-text>
     </ion-item>
 
     <ion-button type="submit" color="medium" expand="block">Registrar</ion-button>

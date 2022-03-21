@@ -19,9 +19,15 @@ export class EventosPage implements OnInit {
     private restService: RestService,
     private loadingController: LoadingController,
     private router: Router
-  ) { }
+  ) {
+    this.cargarDatos();
+   }
 
-  async ngOnInit() {
+    ngOnInit(): void {
+      
+    }
+
+  async cargarDatos() {
     const loading = await this.loadingController.create({
       cssClass: 'my-custom-class',
       message: 'Cargando...',
@@ -77,4 +83,10 @@ export class EventosPage implements OnInit {
     this.router.navigate(['update-evento'], parametros);
   }
 
+  doRefresh(event) {
+    setTimeout(() => {
+      event.target.complete();
+      this.cargarDatos();
+    }, 1000);
+  }
 }

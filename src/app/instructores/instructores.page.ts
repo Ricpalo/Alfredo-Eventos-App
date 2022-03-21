@@ -58,5 +58,12 @@ export class InstructoresPage implements OnInit {
 
     this.router.navigate(['update-instructor'], parametros);
   }
+
+  doRefresh(event) {
+    setTimeout(() => {
+      event.target.complete();
+      this.cargarDatos();
+    }, 1000);
+  }
 }
  

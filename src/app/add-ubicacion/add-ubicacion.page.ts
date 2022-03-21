@@ -13,6 +13,11 @@ export class AddUbicacionPage implements OnInit {
     direccion: ""
   }
 
+  errores = {
+    nombre: "",
+    direccion: ""
+  }
+
   constructor(
     private restService: RestService,
     private router: Router
@@ -28,8 +33,17 @@ export class AddUbicacionPage implements OnInit {
     formulario.append("direccion", this.ubicacion.direccion);
 
     this.restService.subida_ficheros_y_datos('ubicaciones/api/ubicaciones', formulario).subscribe(res => {
-      console.log(res);
-      this.router.navigate(['ubicaciones']);
+      if ( res.status == "0" ) {
+        if ( res.errores.nombre != null ) {
+          this.errores.nombre = "El campo nombre es requerido";
+        }
+
+        if ( res.errores.direccion != null ) {
+          this.errores.direccion = "El campo direccion es requerido";
+        }
+      } else {
+        this.router.navigate(['ubicaciones']);
+      }
     });
   }
 }

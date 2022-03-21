@@ -58,4 +58,11 @@ export class UbicacionesPage implements OnInit {
 
     this.router.navigate(['update-ubicacion'], parametros);
   }
+
+  doRefresh(event) {
+    setTimeout(() => {
+      event.target.complete();
+      this.cargarDatos();
+    }, 1000);
+  }
 }
